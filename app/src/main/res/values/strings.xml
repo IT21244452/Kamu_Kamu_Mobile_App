@@ -29,4 +29,7 @@
     <string name="confirm_password_input_label01">Confirm Password</string>
     <string name="dashboard_admin">Dashboard Admin</string>
     <string name="abc_exaample_com">abc@exaample.com</string>
+    <string name="add_category">Add Category</string>
+    <string name="submit">Submit</string>
+    <string name="category_title">Category Title</string>
 </resources>
