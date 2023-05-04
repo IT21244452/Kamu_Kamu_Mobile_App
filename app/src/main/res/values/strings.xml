@@ -32,4 +32,6 @@
     <string name="add_category">Add Category</string>
     <string name="submit">Submit</string>
     <string name="category_title">Category Title</string>
+    <string name="category_title_02">Category Title</string>
+    <string name="search">Search</string>
 </resources>
