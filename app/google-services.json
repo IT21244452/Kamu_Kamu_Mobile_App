@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "14350768496",
+    "project_id": "kamu-kamu-mobile-app",
+    "storage_bucket": "kamu-kamu-mobile-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14350768496:android:9aa6feb710da75d449d7b5",
+        "android_client_info": {
+          "package_name": "com.example.kamu_kamu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "14350768496-9co75j98cpgp9hjmuptqsng2iugg91j9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjB3pKJuc10_U9f-T8VJkJ2JROFL2O98Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "14350768496-9co75j98cpgp9hjmuptqsng2iugg91j9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
