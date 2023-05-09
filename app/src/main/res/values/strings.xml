@@ -34,4 +34,7 @@
     <string name="category_title">Category Title</string>
     <string name="category_title_02">Category Title</string>
     <string name="search">Search</string>
+    <string name="category">Category</string>
+    <string name="search_02">Search</string>
+    <string name="recipe">Recipe</string>
 </resources>
