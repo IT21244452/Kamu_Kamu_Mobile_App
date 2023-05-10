@@ -1,11 +1,13 @@
 package com.example.kamu_kamu
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kamu_kamu.databinding.RowPdfAdminBinding
 
@@ -22,7 +24,7 @@ class AdapterPdfAdmin :RecyclerView.Adapter<AdapterPdfAdmin.HolderPdfAdmin>, Fil
     private lateinit var binding:RowPdfAdminBinding
 
     //filter object
-    var filter: FilterPdfadmin? = null
+    private var filter: FilterPdfadmin? = null
 
 
     //constructor
@@ -74,8 +76,55 @@ class AdapterPdfAdmin :RecyclerView.Adapter<AdapterPdfAdmin.HolderPdfAdmin>, Fil
         //pass null for page number // load pdf thumbnail
         MyApplication.loadPdfFromUrlSinglePage(pdfUrl,title, holder.pdfView , holder.progressBar, null)
 
-        //load pdg size
+        //load pdf size
         MyApplication.loadPdfSize(pdfUrl, title, holder.sizeTv)
+
+        //handle click, show dialog with options 1) Edit recipe, 2) Delete Recipe
+        holder.moreBtn.setOnClickListener {
+            moreOptionsDialog(model, holder)
+        }
+
+//        //handle item click
+        holder.itemView.setOnClickListener {
+            //intent with recipe id
+            val intent = Intent(context, PdfDetailActivity::class.java)
+            intent.putExtra("recipeId", pdfId) // will be used to load recipe details
+            context.startActivity(intent)
+        }
+
+
+    }
+
+    private fun moreOptionsDialog(model: ModelPdf, holder: AdapterPdfAdmin.HolderPdfAdmin) {
+            //get id, url , title of recipe
+        val recipeId = model.id
+        val recipeUrl = model.url
+        val recipeTitle = model.title
+
+        //options to show in dialog
+        val options = arrayOf("Edit", "Delete")
+
+        //alert dialog
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Choose Option")
+            .setItems(options){dialog, position ->
+                // handle item click
+                if(position == 0){
+                    //Edit is clicked
+                    val intent = Intent(context, PdfEditActivity::class.java)
+                    intent.putExtra("recipeId", recipeId) // passed recipeId, will be used to edit the recipe
+                    context.startActivity(intent)
+
+                }
+                else if(position == 1){
+                    //delete is clicked // delete function is in MyApplication class
+
+
+                        MyApplication.deleteRecipe(context, recipeId, recipeUrl, recipeTitle)
+                }
+
+            }
+            .show()
 
     }
 
