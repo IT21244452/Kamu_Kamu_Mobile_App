@@ -264,13 +264,26 @@
         android:background="@color/goldenBrown1">
 
 
+<!--        Button: view recipe-->
         <Button
             android:id="@+id/readRecipeBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="View"
             android:drawableTop="@drawable/ic_view_recipe_white"
             android:layout_weight="1"/>
+
+<!--        Button: Download Recipe(Download Folder-->
+
+        <Button
+            android:id="@+id/downloadRecipeBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Download"
+            android:drawableTop="@drawable/ic_download_white"
+            android:layout_weight="1"/>
+
+
 
     </LinearLayout>
 
