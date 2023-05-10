@@ -1,11 +1,14 @@
 package com.example.kamu_kamu
 
 import android.app.Application
+import android.app.ProgressDialog
+import android.content.Context
 import android.text.format.DateFormat
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import com.github.barteksc.pdfviewer.PDFView
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -13,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import java.util.*
+import kotlin.collections.HashMap
 
 class MyApplication : Application() {
 
@@ -128,6 +132,86 @@ class MyApplication : Application() {
 
                         //set category
                         categoryTv.text = category
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+
+                    }
+                })
+        }
+
+        fun deleteRecipe(context: Context, recipeId:String, recipeUrl: String, recipeTitle: String){
+            //param details
+            //1) context , use when require toast, prgress ialog
+             // 2)  recipe id, to delete recipe from db
+            //3) recipeUrl, delete recipe from firebase storage
+            //4) recipe Title , show in dialog
+            
+            val TAG = "DELETE_RECIPE_TAG"
+            Log.d(TAG, "deleteRecipe: deleting....")
+            
+            //progress dialog
+            val progressDialog = ProgressDialog(context)
+            progressDialog.setTitle("Please wait")
+            progressDialog.setMessage("Deleting $recipeTitle...")
+            progressDialog.show()
+
+            Log.d(TAG, "deleteRecipe: Deleting from storage....")
+            val storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(recipeUrl)
+            storageReference.delete()
+                .addOnSuccessListener {
+                    Log.d(TAG, "deleteRecipe: Deleted from storage")
+                    Log.d(TAG, "deleteRecipe: Deleting from db now...")
+                    
+                    val ref = FirebaseDatabase.getInstance().getReference("Recipes")
+                    ref.child(recipeId)
+                        .removeValue()
+                        .addOnSuccessListener { 
+                            progressDialog.dismiss()
+                            Toast.makeText(context,"Successfully deleted..." , Toast.LENGTH_SHORT).show()
+                            Log.d(TAG, "deleteRecipe: Deleted from db too...")
+                        }
+                        .addOnFailureListener {e->
+                            progressDialog.dismiss()
+                            Log.d(TAG, "deleteRecipe: Failed to delete from db due to ${e.message}")
+                            Toast.makeText(context,"Failed to delete due to ${e.message}" , Toast.LENGTH_SHORT).show()
+                            
+                        }
+                    
+                }
+                .addOnFailureListener{e->
+                    progressDialog.dismiss()
+                    Log.d(TAG, "deleteRecipe: Failed to delete from storage due to ${e.message}")
+                    Toast.makeText(context,"Failed to delete due to ${e.message}" , Toast.LENGTH_SHORT).show()
+                    
+                }
+        }
+
+        fun incrementRecipeViewCount(recipeId: String){
+            //1)Get current book views count
+            val ref = FirebaseDatabase.getInstance().getReference("Recipes")
+            ref.child(recipeId)
+                .addListenerForSingleValueEvent(object: ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        //get views count
+                        var viewsCount = "${snapshot.child("viewsCount").value}"
+
+                        if(viewsCount == "" || viewsCount== "null"){
+                            viewsCount = "0";
+                        }
+
+                        //2) Increment views count
+                        val newViewsCount = viewsCount.toLong() + 1
+
+                        //setup data to update in db
+                        val hashMap = HashMap<String, Any> ()
+                        hashMap["viewsCount"] = newViewsCount
+
+                        //set to db
+                        val dbRef = FirebaseDatabase.getInstance().getReference("Recipes")
+                        dbRef.child(recipeId)
+                            .updateChildren(hashMap)
 
                     }
 
