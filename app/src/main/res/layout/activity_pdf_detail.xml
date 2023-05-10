@@ -39,6 +39,7 @@
 
 <!--    All content under scrollview-->
     <ScrollView
+        android:layout_above="@id/recipeOptionsLl"
         android:layout_width="match_parent"
         android:padding="10dp"
         android:layout_below="@id/toolbarRl"
@@ -252,6 +253,28 @@
 
 
     </ScrollView>
+
+<!--Bottom button for recipe options-->
+    <LinearLayout
+        android:id="@+id/recipeOptionsLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@color/goldenBrown1">
+
+
+        <Button
+            android:id="@+id/readRecipeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View"
+            android:drawableTop="@drawable/ic_view_recipe_white"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+
 
 
 

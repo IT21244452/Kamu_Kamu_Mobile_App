@@ -1,5 +1,6 @@
 package com.example.kamu_kamu
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.kamu_kamu.databinding.ActivityPdfDetailBinding
@@ -34,6 +35,13 @@ class PdfDetailActivity : AppCompatActivity() {
         //handle back button click, goback
         binding.backBtn.setOnClickListener {
             onBackPressed()
+        }
+
+        //handle click, open pdf view activity
+        binding.readRecipeBtn.setOnClickListener {
+            val intent = Intent(this, PdfViewActivity::class.java)
+            intent.putExtra("recipeId", recipeId)
+            startActivity(intent)
         }
 
     }
