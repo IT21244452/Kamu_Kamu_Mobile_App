@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kamu_kamu.databinding.RowPdfAdminBinding
 
-class AdapterPdfAdmin :RecyclerView.Adapter<AdapterPdfAdmin.HolderPdfAdmin>, Filterable{
+class AdapterPdfAdmin :Adapter<AdapterPdfAdmin.HolderPdfAdmin>, Filterable{
 
     //context
     private var context: Context
