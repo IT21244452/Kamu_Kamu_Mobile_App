@@ -35,11 +35,6 @@ class AdapterPdfAdmin :Adapter<AdapterPdfAdmin.HolderPdfAdmin>, Filterable{
         this.filterList = pdfArrayList
     }
 
-
-
-
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HolderPdfAdmin {
        //bind/ inflate layout row_pdf_admin.xml
         binding = RowPdfAdminBinding.inflate(LayoutInflater.from(context),parent, false)

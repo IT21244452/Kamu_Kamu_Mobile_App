@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import com.example.kamu_kamu.databinding.ActivityPdfDetailBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -36,6 +37,11 @@ class PdfDetailActivity : AppCompatActivity() {
     private var recipeTitle = ""
     private var recipeUrl = ""
 
+    //will hold a boolean value false/true to indicate either is in current user's favorite list or not
+    private var isInMyFavorite = false
+
+    private lateinit var firebaseAuth : FirebaseAuth
+
     private lateinit var progressDialog:ProgressDialog
 
 
@@ -54,13 +60,21 @@ class PdfDetailActivity : AppCompatActivity() {
         progressDialog.setTitle("Please wait...")
         progressDialog.setCanceledOnTouchOutside(false)
 
+//        init firebase auth
+        firebaseAuth = FirebaseAuth.getInstance()
+        if(firebaseAuth.currentUser != null){
+            //user is logged in , check whether recipe is in favorite or not
+            checkIsFavorite()
+        }
+
+
 
         //increment recipe view count,whenever page starts
         MyApplication.incrementRecipeViewCount(recipeId)
 
         loadRecipeDetails()
 
-        //handle back button click, goback
+        //handle back button click, go back
         binding.backBtn.setOnClickListener {
             onBackPressed()
         }
@@ -82,6 +96,29 @@ class PdfDetailActivity : AppCompatActivity() {
             else{
                 Log.d(TAG, "onCreate: STORAGE PERMISSION was not granted, LET'S request it")
                 requestStoragePermissionLauncher.launch(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            }
+        }
+
+
+        //handle click, add/remove favourite
+        binding.favoriteBtn.setOnClickListener {
+            //add only if user logged in
+            //1)check whether user logged in or not
+            if(firebaseAuth.currentUser == null){
+                //user not logged in, Can't do favorite action
+                Toast.makeText(this,"You're not logged in", Toast.LENGTH_SHORT).show()
+            }
+            else{
+                //user is logged in,can do favorite action
+                if(isInMyFavorite){
+                    //already in fav. remove
+                    removeFromFavorite()
+                }
+                else{
+                    //not in favorite. add
+                    addToFavorite()
+                }
+
             }
         }
 
@@ -240,4 +277,85 @@ class PdfDetailActivity : AppCompatActivity() {
                 }
             })
     }
+
+    private fun checkIsFavorite(){
+        Log.d(TAG, "checkIsFavorite: Checking if recipe is in favorite or not")
+
+        val ref = FirebaseDatabase.getInstance().getReference("Users")
+        ref.child(firebaseAuth.uid!!).child("Favorites").child(recipeId)
+            .addValueEventListener(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    isInMyFavorite = snapshot.exists()
+                    if(isInMyFavorite){
+                        //available in favourites
+                        Log.d(TAG, "onDataChange: available in favourites")
+                        //set drawable top icon
+                        binding.favoriteBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(0,R.drawable.ic_favorite_filled_white,0,0)
+                        binding.favoriteBtn.text = "Remove Favorite"
+                    }
+                    else{
+                        //not available in favorites
+                        Log.d(TAG, "onDataChange: not available in favorites")
+                        //set drawable top icon
+                        binding.favoriteBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(0,R.drawable.ic_favorite_border_white,0,0)
+                        binding.favoriteBtn.text = "Add Favorite"
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
+
+    }
+
+    private fun addToFavorite(){
+        val timestamp = System.currentTimeMillis()
+        Log.d(TAG, "addToFavorite: Adding to favorite")
+
+        //setup data to add in db
+        val hashMap = HashMap<String , Any>()
+        hashMap["recipeId"] = recipeId
+        hashMap["timestamp"] = timestamp
+
+
+        //save to db
+        val ref = FirebaseDatabase.getInstance().getReference("Users")
+        ref.child(firebaseAuth.uid!!).child("Favorites").child(recipeId)
+            .setValue(hashMap)
+            .addOnSuccessListener {
+                //added to fav
+                Log.d(TAG, "addToFavorite: Added to favorite")
+                Toast.makeText(this, "Added to favorite",Toast.LENGTH_SHORT).show()
+
+            }
+            .addOnFailureListener{e->
+                //failed to add favorite
+                Log.d(TAG, "addToFavorite: Failed to add to favorite due to ${e.message}")
+                Toast.makeText(this, "Failed to add to favorite due to ${e.message}",Toast.LENGTH_SHORT).show()
+
+            }
+
+    }
+
+    private fun removeFromFavorite(){
+        Log.d(TAG, "removeFromFavorite: Remove from favorite")
+
+        //database ref
+        val ref = FirebaseDatabase.getInstance().getReference("Users")
+        ref.child(firebaseAuth.uid!!).child("Favorites").child(recipeId)
+            .removeValue()
+            .addOnSuccessListener {
+                Log.d(TAG, "removeFromFavorite: removed from favorite")
+                Toast.makeText(this, "Removed from favorites",Toast.LENGTH_SHORT).show()
+
+            }
+            .addOnFailureListener{e->
+                Log.d(TAG, "removeFromFavorite: Failed to remove from favorite due to ${e.message}")
+                Toast.makeText(this, "Failed to remove from favorite due to ${e.message}",Toast.LENGTH_SHORT).show()
+
+
+            }
+    }
+
 }
