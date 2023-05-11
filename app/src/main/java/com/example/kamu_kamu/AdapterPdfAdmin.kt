@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kamu_kamu.databinding.RowPdfAdminBinding
+import com.example.kamu_kamu.models.ModelPdf
 
 class AdapterPdfAdmin :Adapter<AdapterPdfAdmin.HolderPdfAdmin>, Filterable{
 
@@ -34,11 +35,6 @@ class AdapterPdfAdmin :Adapter<AdapterPdfAdmin.HolderPdfAdmin>, Filterable{
         this.pdfArrayList = pdfArrayList
         this.filterList = pdfArrayList
     }
-
-
-
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HolderPdfAdmin {
        //bind/ inflate layout row_pdf_admin.xml
