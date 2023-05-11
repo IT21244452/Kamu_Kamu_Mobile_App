@@ -1,4 +1,4 @@
-package com.example.kamu_kamu
+package com.example.kamu_kamu.models
 
 class ModelPdf {
     //variables

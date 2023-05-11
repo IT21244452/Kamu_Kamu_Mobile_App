@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kamu_kamu.databinding.RowPdfAdminBinding
+import com.example.kamu_kamu.models.ModelPdf
 
 class AdapterPdfAdmin :Adapter<AdapterPdfAdmin.HolderPdfAdmin>, Filterable{
 

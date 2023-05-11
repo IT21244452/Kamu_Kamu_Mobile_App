@@ -10,6 +10,7 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.kamu_kamu.databinding.RowPdfUserBinding
+import com.example.kamu_kamu.models.ModelPdf
 
 
 class AdapterPdfUser : Adapter<AdapterPdfUser.HolderPdfUser>, Filterable{
