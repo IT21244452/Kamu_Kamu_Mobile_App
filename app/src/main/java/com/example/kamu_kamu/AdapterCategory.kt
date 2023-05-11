@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kamu_kamu.databinding.RowCategoryBinding
 import com.google.firebase.database.FirebaseDatabase
 
-class AdapterCategory :RecyclerView.Adapter<AdapterCategory.HolderCategory>, Filterable{
+class AdapterCategory :Adapter<AdapterCategory.HolderCategory>, Filterable{
 
     private val context:Context
     public var categoryArrayList:ArrayList<ModelCategory>
