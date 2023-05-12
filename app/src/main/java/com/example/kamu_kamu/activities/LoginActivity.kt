@@ -46,6 +46,11 @@ class LoginActivity : AppCompatActivity() {
         binding.loginBtn.setOnClickListener{
             validateData()
         }
+
+        binding.forgotTv.setOnClickListener{
+            startActivity(Intent(this,ForgotPasswordActivity::class.java))
+        }
+
     }
 
 
@@ -122,3 +127,5 @@ class LoginActivity : AppCompatActivity() {
             })
     }
 }
+
+

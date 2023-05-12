@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Kamu_Kamu"
         tools:targetApi="31">
         <activity
+            android:name=".activities.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.ProfileEditActivity"
             android:exported="false" />
         <activity
