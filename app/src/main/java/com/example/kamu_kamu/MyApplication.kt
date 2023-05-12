@@ -9,7 +9,9 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import com.example.kamu_kamu.activities.PdfDetailActivity
 import com.github.barteksc.pdfviewer.PDFView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -79,44 +81,54 @@ class MyApplication : Application() {
             //using url we can get file and its metadata from firebase
             val ref = FirebaseStorage.getInstance().getReferenceFromUrl(pdfUrl)
             ref.getBytes(Constants.MAX_BYTES_PDF)
-                .addOnSuccessListener {bytes ->
+                .addOnSuccessListener { bytes ->
 
-                    Log.d(TAG, "loadPdfSize: Size Bytes $bytes")
+                    if (bytes != null) {
 
-                   //SET to pdf view
-                    pdfView.fromBytes(bytes)
-                        .pages(0) // show first page only
-                        .spacing(0)
-                        .swipeHorizontal(false)
-                        .enableSwipe(false)
-                        .onError { t->
-                            progressBar.visibility = View.INVISIBLE
-                            Log.d(TAG, "loadPdfFromUrlSinglePage: ${t.message}")
-                        }
-                        .onPageError{page, t->
-                            progressBar.visibility = View.INVISIBLE
-                            Log.d(TAG, "loadPdfFromUrlSinglePage: ${t.message}")
+                        Log.d(TAG, "loadPdfSize: Size Bytes $bytes")
 
-                        }
-                        .onLoad{nbPages ->
-                            Log.d(TAG, "loadPdfFromUrlSinglePage: Pages:$nbPages")
-
-                            //pdf loaded, we can set page count , pdf thumbnail
-                            progressBar.visibility = View.INVISIBLE
-
-                            //if pagesTv param is not null then set page numbers
-                            if(pagesTv != null){
-                                pagesTv.text = "$nbPages"
+                        //SET to pdf view
+                        pdfView.fromBytes(bytes)
+                            .pages(0) // show first page only
+                            .spacing(0)
+                            .swipeHorizontal(false)
+                            .enableSwipe(false)
+                            .onError { t ->
+                                progressBar.visibility = View.INVISIBLE
+                                Log.d(TAG, "loadPdfFromUrlSinglePage: ${t.message}")
                             }
+                            .onPageError { page, t ->
+                                progressBar.visibility = View.INVISIBLE
+                                Log.d(TAG, "loadPdfFromUrlSinglePage: ${t.message}")
+
+                            }
+                            .onLoad { nbPages ->
+                                Log.d(TAG, "loadPdfFromUrlSinglePage: Pages:$nbPages")
+
+                                //pdf loaded, we can set page count , pdf thumbnail
+                                progressBar.visibility = View.INVISIBLE
+
+                                //if pagesTv param is not null then set page numbers
+                                if (pagesTv != null) {
+                                    pagesTv.text = "$nbPages"
+                                }
+                            }
+                            .load()
+
+//                    }
+
+                    }
+
+                }
+
+
+                        .addOnFailureListener { e ->
+                            //failed to get metadata
+                            Log.d(TAG, "loadPdfSize: Failed to get metadata due to ${e.message}")
+
                         }
-                        .load()
 
-                }
-                .addOnFailureListener{e->
-                    //failed to get metadata
-                    Log.d(TAG, "loadPdfSize: Failed to get metadata due to ${e.message}")
 
-                }
         }
 
 
@@ -219,6 +231,31 @@ class MyApplication : Application() {
 
                     }
                 })
+        }
+
+
+        public fun removeFromFavorite(context: Context, recipeId: String){
+            val TAG = "REMOVE_FAV_TAG"
+
+            Log.d(TAG, "removeFromFavorite: Remove from favorite")
+
+            val firebaseAuth = FirebaseAuth.getInstance()
+
+
+            //database ref
+            val ref = FirebaseDatabase.getInstance().getReference("Users")
+            ref.child(firebaseAuth.uid!!).child("Favorites").child(recipeId)
+                .removeValue()
+                .addOnSuccessListener {
+                    Log.d(TAG, "removeFromFavorite: removed from favorite")
+                    Toast.makeText(context, "Removed from favorites",Toast.LENGTH_SHORT).show()
+
+                }
+                .addOnFailureListener{e->
+                    Log.d(TAG, "removeFromFavorite: Failed to remove from favorite due to ${e.message}")
+                    Toast.makeText(context, "Failed to remove from favorite due to ${e.message}",Toast.LENGTH_SHORT).show()
+
+                }
         }
 
     }

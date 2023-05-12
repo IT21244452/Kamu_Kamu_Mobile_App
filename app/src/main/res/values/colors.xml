@@ -13,10 +13,14 @@
     <color name="gray03">#EDEDED</color>
     <color name="goldenBrown1">#E6AA39</color>
     <color name="goldenBrown2">#EDC780</color>
+    <color name="gray04">#FBFBFB</color>
+    <color name="darkbrown">#67370C</color>
 
 
 
-<!--    <color name="teal_200">#FF03DAC5</color>-->
+
+
+    <!--    <color name="teal_200">#FF03DAC5</color>-->
 <!--    <color name="teal_700">#FF018786</color>-->
 
 </resources>

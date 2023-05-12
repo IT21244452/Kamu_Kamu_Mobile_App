@@ -1,5 +1,6 @@
 package com.example.kamu_kamu.activities
 
+import android.app.AlertDialog
 import android.app.ProgressDialog
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -7,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
+import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
@@ -14,6 +16,7 @@ import com.example.kamu_kamu.Constants
 import com.example.kamu_kamu.MyApplication
 import com.example.kamu_kamu.R
 import com.example.kamu_kamu.databinding.ActivityPdfDetailBinding
+import com.example.kamu_kamu.databinding.DialogCommentAddBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -114,7 +117,7 @@ class PdfDetailActivity : AppCompatActivity() {
                 //user is logged in,can do favorite action
                 if(isInMyFavorite){
                     //already in fav. remove
-                    removeFromFavorite()
+                    MyApplication.removeFromFavorite(this, recipeId)
                 }
                 else{
                     //not in favorite. add
@@ -123,6 +126,106 @@ class PdfDetailActivity : AppCompatActivity() {
 
             }
         }
+
+
+        //handle click, show add comment dialog
+        binding.addCommentBtn.setOnClickListener {
+//            To add a comment user must be logged in
+
+            if(firebaseAuth.currentUser == null){
+                //user not logged in, not allowed to add comment
+                Toast.makeText(this, "You're not logged in", Toast.LENGTH_SHORT).show()
+
+            }
+            else{
+                //user logged in , allow to add comment
+                addCommentDialog()
+
+            }
+
+        }
+
+
+    }
+
+
+    private var comment = ""
+
+    private fun addCommentDialog() {
+        //inflate view for adding dialog dialog_comment_add.xml
+        val commentAddBinding = DialogCommentAddBinding.inflate(LayoutInflater.from(this))
+
+        //setup alert dialog
+        val builder = AlertDialog.Builder(this, R.style.CustomDialog)
+        builder.setView(commentAddBinding.root)
+
+        //create and show alert dialog
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+        //handle click, dismiss dialog
+        commentAddBinding.backBtn.setOnClickListener { alertDialog.dismiss() }
+
+        //handle click, add comment
+        commentAddBinding.submitBtn.setOnClickListener {
+            //get data
+            comment = commentAddBinding.commentEt.text.toString().trim()
+
+            //validate data
+            if(comment.isEmpty()){
+                Toast.makeText(this, "Enter comment....", Toast.LENGTH_SHORT).show()
+
+            }
+            else{
+                alertDialog.dismiss()
+                addComment()
+            }
+        }
+
+
+
+    }
+
+    private fun addComment() {
+        //show progress
+        progressDialog.setMessage("Adding comment")
+        progressDialog.show()
+
+        //timestamp for comment id, comment timestamp
+        val timestamp = "${System.currentTimeMillis()}"
+
+        //setup daa to add in db for comment
+        val hashMap = HashMap<String , Any>()
+        hashMap["id"] = "$timestamp"
+        hashMap["recipeId"] = "$recipeId"
+        hashMap["recipeId"] = "$recipeId"
+        hashMap["timestamp"] = "$timestamp"
+        hashMap["comment"] = "$comment"
+        hashMap["uid"] = "${firebaseAuth.uid}"
+
+
+        //Db path to add data into it
+        //Recipes > recipeId > Comment > commentId > commentData
+        val ref = FirebaseDatabase.getInstance().getReference("Recipes")
+        ref.child(recipeId).child("Comments").child(timestamp)
+            .setValue(hashMap)
+            .addOnSuccessListener {
+
+                progressDialog.dismiss()
+                Toast.makeText(this, "Comment added...", Toast.LENGTH_SHORT).show()
+
+            }
+            .addOnFailureListener{e->
+                progressDialog.dismiss()
+                Toast.makeText(this, "Failed to add comment due to ${e.message}", Toast.LENGTH_SHORT).show()
+
+            }
+
+
+
+
+
+
 
     }
 
@@ -348,24 +451,6 @@ class PdfDetailActivity : AppCompatActivity() {
 
     }
 
-    private fun removeFromFavorite(){
-        Log.d(TAG, "removeFromFavorite: Remove from favorite")
 
-        //database ref
-        val ref = FirebaseDatabase.getInstance().getReference("Users")
-        ref.child(firebaseAuth.uid!!).child("Favorites").child(recipeId)
-            .removeValue()
-            .addOnSuccessListener {
-                Log.d(TAG, "removeFromFavorite: removed from favorite")
-                Toast.makeText(this, "Removed from favorites",Toast.LENGTH_SHORT).show()
-
-            }
-            .addOnFailureListener{e->
-                Log.d(TAG, "removeFromFavorite: Failed to remove from favorite due to ${e.message}")
-                Toast.makeText(this, "Failed to remove from favorite due to ${e.message}",Toast.LENGTH_SHORT).show()
-
-
-            }
-    }
 
 }

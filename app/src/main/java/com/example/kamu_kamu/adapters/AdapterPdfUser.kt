@@ -79,7 +79,7 @@ private var filter: FilterPdfUser? = null
         holder.dateTv.text = date
 
 try {
-//    MyApplication.loadPdfFromUrlSinglePage(url, title, holder.pdfView, holder.progressBar, null)
+    MyApplication.loadPdfFromUrlSinglePage(url, title, holder.pdfView, holder.progressBar, null)
 }
 catch (e: Exception){
     Log.d(TAG, "onBindViewHolder: failed")
@@ -90,7 +90,7 @@ catch (e: Exception){
 
         try {
 
-//            MyApplication.loadPdfSize(url, title, holder.sizeTv)
+            MyApplication.loadPdfSize(url, title, holder.sizeTv)
         }
         catch (e: Exception){
             Log.d(TAG, "onBindViewHolder: failed load size")

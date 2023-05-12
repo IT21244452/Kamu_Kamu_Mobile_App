@@ -80,9 +80,9 @@ class RecipesUserFragment : Fragment {
             loadMostViewedDownloadedRecipes("viewsCount")
             
         }
-        else if(category == "Most Downloaded "){
+        else if(category == "Most Downloaded"){
             //load most downloaded recipes 
-            loadMostViewedDownloadedRecipes("downloadsCount")
+            loadMostViewedDownloadedRecipes("downloadCount")
             
         }
         else{

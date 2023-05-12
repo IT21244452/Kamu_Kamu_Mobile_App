@@ -1,12 +1,15 @@
 package com.example.kamu_kamu.activities
 
+import android.content.AbstractThreadedSyncAdapter
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.example.kamu_kamu.MyApplication
 import com.example.kamu_kamu.R
+import com.example.kamu_kamu.adapters.AdapterPdfFavorite
 import com.example.kamu_kamu.databinding.ActivityProfileBinding
+import com.example.kamu_kamu.models.ModelPdf
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -21,6 +24,12 @@ class ProfileActivity : AppCompatActivity() {
     //firebase auth
     private lateinit var firebaseAuth: FirebaseAuth
 
+
+    //arraylist to hold recipes
+    private lateinit var recipesArrayList: ArrayList<ModelPdf>
+    private lateinit var adapterPdfFavorite: AdapterPdfFavorite
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
@@ -28,6 +37,7 @@ class ProfileActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
         loadUserinfo()
+        loadFavouriteRecipes()
 
         //handle click, go back
         binding.backBtn.setOnClickListener {
@@ -83,4 +93,50 @@ class ProfileActivity : AppCompatActivity() {
 
             })
     }
+
+
+    private fun loadFavouriteRecipes(){
+
+        //init arraylist
+        recipesArrayList = ArrayList()
+
+
+        val ref = FirebaseDatabase.getInstance().getReference("Users")
+        ref.child(firebaseAuth.uid!!).child("Favorites")
+            .addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    //clear arraylist, before starting adding data
+                    recipesArrayList.clear()
+                    for(ds in snapshot.children){
+                        //get only id of the recipe, rest of the info have loaded in adaptor class
+                        val recipeId = "${ds.child("recipeId").value}"
+
+                        //set to model
+                        val modelPdf = ModelPdf()
+                        modelPdf.id = recipeId
+
+
+                        //add model to list
+                        recipesArrayList.add(modelPdf)
+                    }
+                    //set number of favorite recipes
+                    binding.favoriteRecipeCountTv.text = "${recipesArrayList.size}"
+
+                    //setup adapter
+                    adapterPdfFavorite = AdapterPdfFavorite(this@ProfileActivity, recipesArrayList)
+
+                    //set adapter to recyclerview
+                    binding.favoriteRv.adapter = adapterPdfFavorite
+
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
+
+    }
+
+
+
 }
