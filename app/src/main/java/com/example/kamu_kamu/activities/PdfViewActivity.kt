@@ -1,9 +1,10 @@
-package com.example.kamu_kamu
+package com.example.kamu_kamu.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import com.example.kamu_kamu.Constants
 import com.example.kamu_kamu.databinding.ActivityPdfViewBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

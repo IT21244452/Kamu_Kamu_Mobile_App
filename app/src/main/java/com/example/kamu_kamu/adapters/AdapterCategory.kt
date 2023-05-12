@@ -1,4 +1,4 @@
-package com.example.kamu_kamu
+package com.example.kamu_kamu.adapters
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,9 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kamu_kamu.filters.FilterCategory
+import com.example.kamu_kamu.models.ModelCategory
+import com.example.kamu_kamu.activities.PdfListAdminActivity
 import com.example.kamu_kamu.databinding.RowCategoryBinding
 import com.google.firebase.database.FirebaseDatabase
 

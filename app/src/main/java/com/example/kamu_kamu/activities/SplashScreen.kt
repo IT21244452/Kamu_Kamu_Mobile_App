@@ -1,9 +1,11 @@
-package com.example.kamu_kamu
+package com.example.kamu_kamu.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import com.example.kamu_kamu.Get_Started
+import com.example.kamu_kamu.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -31,7 +33,7 @@ class SplashScreen : AppCompatActivity() {
         val firebaseUser = firebaseAuth.currentUser
         if(firebaseUser == null){
             //user not logged in go to get started screen
-            startActivity(Intent(this,Get_Started::class.java))
+            startActivity(Intent(this, Get_Started::class.java))
             finish()
         }
         else{
@@ -47,12 +49,12 @@ class SplashScreen : AppCompatActivity() {
                         val userType = snapshot.child("userType").value
                         if(userType == "user"){
                             //open user dashboard
-                            startActivity(Intent(this@SplashScreen,DashboardUserActivity::class.java))
+                            startActivity(Intent(this@SplashScreen, DashboardUserActivity::class.java))
                             finish()
                         }
                         else if(userType == "admin"){
                             //open admin dashboard
-                            startActivity(Intent(this@SplashScreen,DashBoardAdminActivity::class.java))
+                            startActivity(Intent(this@SplashScreen, DashBoardAdminActivity::class.java))
                             finish()
                         }
                     }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/allbg"
-    tools:context=".DashBoardAdminActivity">
+    tools:context=".activities.DashBoardAdminActivity">
 
     <!--    Toolbox-->
 
@@ -15,6 +15,18 @@
         android:layout_height="?actionBarSize"
         android:background="@drawable/shape_toolbar02">
 
+<!--        Image Button: Open profile-->
+        <ImageButton
+            android:id="@+id/profileBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_person_white"
+            android:background="@android:color/transparent"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"/>
+
+
+        
         <TextView
             android:id="@+id/titleTv"
             android:layout_width="wrap_content"
@@ -71,11 +83,14 @@
         android:id="@+id/categoriesRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/searchEt"
         android:layout_above="@id/bottomLl"
-        android:layout_margin="5dp"
-        tools:listitem="@layout/row_category"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:layout_below="@id/searchEt"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/row_category" />
 
 
 <!--    Bottom layout-->

@@ -1,4 +1,4 @@
-package com.example.kamu_kamu
+package com.example.kamu_kamu.adapters
 
 import android.content.Context
 import android.content.Intent
@@ -10,6 +10,10 @@ import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kamu_kamu.filters.FilterPdfadmin
+import com.example.kamu_kamu.MyApplication
+import com.example.kamu_kamu.activities.PdfDetailActivity
+import com.example.kamu_kamu.activities.PdfEditActivity
 import com.example.kamu_kamu.databinding.RowPdfAdminBinding
 import com.example.kamu_kamu.models.ModelPdf
 
@@ -71,10 +75,16 @@ class AdapterPdfAdmin :Adapter<AdapterPdfAdmin.HolderPdfAdmin>, Filterable{
         MyApplication.loadCategory(categoryId, holder.categoryTv)
 
         //pass null for page number // load pdf thumbnail
-        MyApplication.loadPdfFromUrlSinglePage(pdfUrl,title, holder.pdfView , holder.progressBar, null)
+//        MyApplication.loadPdfFromUrlSinglePage(
+//            pdfUrl,
+//            title,
+//            holder.pdfView,
+//            holder.progressBar,
+//            null
+//        )
 
         //load pdf size
-        MyApplication.loadPdfSize(pdfUrl, title, holder.sizeTv)
+//        MyApplication.loadPdfSize(pdfUrl, title, holder.sizeTv)
 
         //handle click, show dialog with options 1) Edit recipe, 2) Delete Recipe
         holder.moreBtn.setOnClickListener {
@@ -92,7 +102,7 @@ class AdapterPdfAdmin :Adapter<AdapterPdfAdmin.HolderPdfAdmin>, Filterable{
 
     }
 
-    private fun moreOptionsDialog(model: ModelPdf, holder: AdapterPdfAdmin.HolderPdfAdmin) {
+    private fun moreOptionsDialog(model: ModelPdf, holder: HolderPdfAdmin) {
             //get id, url , title of recipe
         val recipeId = model.id
         val recipeUrl = model.url
@@ -117,7 +127,7 @@ class AdapterPdfAdmin :Adapter<AdapterPdfAdmin.HolderPdfAdmin>, Filterable{
                     //delete is clicked // delete function is in MyApplication class
 
 
-                        MyApplication.deleteRecipe(context, recipeId, recipeUrl, recipeTitle)
+                    MyApplication.deleteRecipe(context, recipeId, recipeUrl, recipeTitle)
                 }
 
             }

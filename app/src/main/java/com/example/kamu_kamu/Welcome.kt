@@ -3,6 +3,8 @@ package com.example.kamu_kamu
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.kamu_kamu.activities.DashboardUserActivity
+import com.example.kamu_kamu.activities.LoginActivity
 import com.example.kamu_kamu.databinding.ActivityWelcomeBinding
 
 class Welcome : AppCompatActivity() {
@@ -23,7 +25,7 @@ class Welcome : AppCompatActivity() {
 
         //handle click, skip and continue to main screen
         binding.skipBtn.setOnClickListener{
-            startActivity(Intent(this,DashboardUserActivity::class.java))
+            startActivity(Intent(this, DashboardUserActivity::class.java))
 
         }
     }

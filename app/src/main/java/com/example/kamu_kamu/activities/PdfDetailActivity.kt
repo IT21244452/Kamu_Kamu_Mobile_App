@@ -1,4 +1,4 @@
-package com.example.kamu_kamu
+package com.example.kamu_kamu.activities
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -10,13 +10,15 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import com.example.kamu_kamu.Constants
+import com.example.kamu_kamu.MyApplication
+import com.example.kamu_kamu.R
 import com.example.kamu_kamu.databinding.ActivityPdfDetailBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import java.io.FileOutputStream
 
@@ -257,10 +259,16 @@ class PdfDetailActivity : AppCompatActivity() {
                     MyApplication.loadCategory(categoryId, binding.categoryTv)
 
                     //load pdf thumbnail, pages count
-                    MyApplication.loadPdfFromUrlSinglePage("$recipeUrl" , "$recipeTitle", binding.pdfView, binding.progressBar,binding.pagesTv)
+                    MyApplication.loadPdfFromUrlSinglePage(
+                        "$recipeUrl",
+                        "$recipeTitle",
+                        binding.pdfView,
+                        binding.progressBar,
+                        binding.pagesTv
+                    )
 
                     //load pdf ize
-                    MyApplication.loadPdfSize("$recipeUrl","$recipeTitle", binding.sizeTv)
+                    MyApplication.loadPdfSize("$recipeUrl", "$recipeTitle", binding.sizeTv)
 
                     //set data
                     binding.titleTv.text = recipeTitle
@@ -290,14 +298,16 @@ class PdfDetailActivity : AppCompatActivity() {
                         //available in favourites
                         Log.d(TAG, "onDataChange: available in favourites")
                         //set drawable top icon
-                        binding.favoriteBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(0,R.drawable.ic_favorite_filled_white,0,0)
+                        binding.favoriteBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(0,
+                            R.drawable.ic_favorite_filled_white,0,0)
                         binding.favoriteBtn.text = "Remove Favorite"
                     }
                     else{
                         //not available in favorites
                         Log.d(TAG, "onDataChange: not available in favorites")
                         //set drawable top icon
-                        binding.favoriteBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(0,R.drawable.ic_favorite_border_white,0,0)
+                        binding.favoriteBtn.setCompoundDrawablesRelativeWithIntrinsicBounds(0,
+                            R.drawable.ic_favorite_border_white,0,0)
                         binding.favoriteBtn.text = "Add Favorite"
                     }
                 }
