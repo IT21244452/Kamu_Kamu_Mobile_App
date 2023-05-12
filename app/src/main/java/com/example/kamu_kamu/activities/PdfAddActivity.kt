@@ -1,8 +1,5 @@
-package com.example.kamu_kamu
+package com.example.kamu_kamu.activities
 
-import android.app.Application
-import android.app.Application.ActivityLifecycleCallbacks
-import android.app.Instrumentation.ActivityResult
 import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
@@ -14,6 +11,7 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import com.example.kamu_kamu.databinding.ActivityPdfAddBinding
+import com.example.kamu_kamu.models.ModelCategory
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot

@@ -1,6 +1,7 @@
-package com.example.kamu_kamu
+package com.example.kamu_kamu.filters
 
 import android.widget.Filter
+import com.example.kamu_kamu.adapters.AdapterPdfUser
 import com.example.kamu_kamu.models.ModelPdf
 
 class FilterPdfUser: Filter {

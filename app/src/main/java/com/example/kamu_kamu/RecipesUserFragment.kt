@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener
+import com.example.kamu_kamu.adapters.AdapterPdfUser
 import com.example.kamu_kamu.databinding.FragmentRecipesUserBinding
 import com.example.kamu_kamu.models.ModelPdf
 import com.google.firebase.database.DataSnapshot
@@ -129,11 +130,16 @@ class RecipesUserFragment : Fragment {
                     //add to list
                     pdfArrayList.add(model!!)
                 }
-                //setup adapter
-                adapterPdfUser = AdapterPdfUser(context!!,pdfArrayList)
-                //set adapter to recycler view
-                binding.recipesRv.adapter = adapterPdfUser
-
+                
+                try {
+                    //setup adapter
+                    adapterPdfUser = AdapterPdfUser(context!!, pdfArrayList)
+                    //set adapter to recycler view
+                    binding.recipesRv.adapter = adapterPdfUser
+                }
+                catch (e:Exception){
+                    Log.d(TAG, "onDataChange: setup adapter failed")
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -159,11 +165,16 @@ class RecipesUserFragment : Fragment {
                     //add to list
                     pdfArrayList.add(model!!)
                 }
-                //setup adapter
-                adapterPdfUser = AdapterPdfUser(context!!,pdfArrayList)
-                //set adapter to recycler view
-                binding.recipesRv.adapter = adapterPdfUser
-
+                
+                try {
+                    //setup adapter
+                    adapterPdfUser = AdapterPdfUser(context!!, pdfArrayList)
+                    //set adapter to recycler view
+                    binding.recipesRv.adapter = adapterPdfUser
+                }
+                catch (e: Exception){
+                    Log.d(TAG, "onDataChange: Failed setup")
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -191,11 +202,16 @@ class RecipesUserFragment : Fragment {
                         //add to list
                         pdfArrayList.add(model!!)
                     }
-                    //setup adapter
-                    adapterPdfUser = AdapterPdfUser(context!!,pdfArrayList)
-                    //set adapter to recycler view
-                    binding.recipesRv.adapter = adapterPdfUser
-
+                    
+                    try {
+                        //setup adapter
+                        adapterPdfUser = AdapterPdfUser(context!!, pdfArrayList)
+                        //set adapter to recycler view
+                        binding.recipesRv.adapter = adapterPdfUser
+                    }
+                    catch (e: Exception){
+                        Log.d(TAG, "onDataChange: failed")
+                    }
                 }
 
                 override fun onCancelled(error: DatabaseError) {

@@ -1,11 +1,14 @@
-package com.example.kamu_kamu
+package com.example.kamu_kamu.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import com.example.kamu_kamu.Welcome
+import com.example.kamu_kamu.adapters.AdapterCategory
 import com.example.kamu_kamu.databinding.ActivityDashBoardAdminBinding
+import com.example.kamu_kamu.models.ModelCategory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -66,13 +69,21 @@ class DashBoardAdminActivity : AppCompatActivity() {
 
         //handle click, start add category page
         binding.addCategoryBtn.setOnClickListener{
-            startActivity(Intent(this,CategoryAddActivity::class.java))
+            startActivity(Intent(this, CategoryAddActivity::class.java))
         }
 
         //handle click,start add pdf page
         binding.addPdfFab.setOnClickListener{
-            startActivity(Intent(this,PdfAddActivity::class.java))
+            startActivity(Intent(this, PdfAddActivity::class.java))
         }
+
+
+        //handle click, open profile
+        binding.profileBtn.setOnClickListener{
+            startActivity(Intent(this,ProfileActivity::class.java))
+        }
+
+
     }
 
     private fun loadCategories() {
@@ -104,6 +115,8 @@ class DashBoardAdminActivity : AppCompatActivity() {
 
         })
     }
+
+
 
     private fun checkUser() {
         //get current user

@@ -1,4 +1,4 @@
-package com.example.kamu_kamu
+package com.example.kamu_kamu.activities
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -9,7 +9,6 @@ import android.widget.Toast
 import com.example.kamu_kamu.databinding.ActivityRegisterBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -134,7 +133,7 @@ class RegisterActivity : AppCompatActivity() {
                 //user info saved
                 progressDialog.dismiss()
                 Toast.makeText(this,"Account Created...", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this@RegisterActivity,DashboardUserActivity::class.java))
+                startActivity(Intent(this@RegisterActivity, DashboardUserActivity::class.java))
                 finish()
 
             }

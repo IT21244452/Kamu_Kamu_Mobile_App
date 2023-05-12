@@ -1,10 +1,11 @@
-package com.example.kamu_kamu
+package com.example.kamu_kamu.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import com.example.kamu_kamu.adapters.AdapterPdfAdmin
 import com.example.kamu_kamu.databinding.ActivityPdfListAdminBinding
 import com.example.kamu_kamu.models.ModelPdf
 import com.google.firebase.database.DataSnapshot

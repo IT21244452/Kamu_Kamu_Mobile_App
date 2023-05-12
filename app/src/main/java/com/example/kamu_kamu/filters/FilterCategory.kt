@@ -1,6 +1,8 @@
-package com.example.kamu_kamu
+package com.example.kamu_kamu.filters
 
 import android.widget.Filter
+import com.example.kamu_kamu.adapters.AdapterCategory
+import com.example.kamu_kamu.models.ModelCategory
 
 
 class FilterCategory:Filter {
@@ -8,7 +10,7 @@ class FilterCategory:Filter {
     private var filterList:ArrayList<ModelCategory>
 
     //adapter in which filter need to be implemented
-    private var adapterCategory:AdapterCategory
+    private var adapterCategory: AdapterCategory
 
     //constructor
     constructor(filterList: ArrayList<ModelCategory>, adapterCategory: AdapterCategory) {

@@ -1,4 +1,4 @@
-package com.example.kamu_kamu
+package com.example.kamu_kamu.activities
 
 import android.app.ProgressDialog
 import androidx.appcompat.app.AppCompatActivity

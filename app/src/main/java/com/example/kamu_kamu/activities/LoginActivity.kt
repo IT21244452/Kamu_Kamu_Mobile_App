@@ -1,11 +1,9 @@
-package com.example.kamu_kamu
+package com.example.kamu_kamu.activities
 
 import android.app.ProgressDialog
 import android.content.Intent
-import android.graphics.PathEffect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PatternMatcher
 import android.util.Patterns
 import android.widget.Toast
 import com.example.kamu_kamu.databinding.ActivityLoginBinding
@@ -41,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
 
         //handle check, not have account, goto register screen
         binding.noAccountTv.setOnClickListener{
-            startActivity(Intent(this,RegisterActivity::class.java))
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
 
         //handle click,begin login
@@ -108,12 +106,12 @@ class LoginActivity : AppCompatActivity() {
                     val userType = snapshot.child("userType").value
                     if(userType == "user"){
                         //open user dashboard
-                        startActivity(Intent(this@LoginActivity,DashboardUserActivity::class.java))
+                        startActivity(Intent(this@LoginActivity, DashboardUserActivity::class.java))
                         finish()
                     }
                     else if(userType == "admin"){
                         //open admin dashboard
-                        startActivity(Intent(this@LoginActivity,DashBoardAdminActivity::class.java))
+                        startActivity(Intent(this@LoginActivity, DashBoardAdminActivity::class.java))
                         finish()
                     }
                 }

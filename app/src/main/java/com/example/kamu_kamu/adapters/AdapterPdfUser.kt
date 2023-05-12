@@ -1,7 +1,9 @@
-package com.example.kamu_kamu
+package com.example.kamu_kamu.adapters
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,9 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.kamu_kamu.filters.FilterPdfUser
+import com.example.kamu_kamu.MyApplication
+import com.example.kamu_kamu.activities.PdfDetailActivity
 import com.example.kamu_kamu.databinding.RowPdfUserBinding
 import com.example.kamu_kamu.models.ModelPdf
 
@@ -73,12 +78,23 @@ private var filter: FilterPdfUser? = null
         holder.descriptionTv.text = description
         holder.dateTv.text = date
 
-
-        MyApplication.loadPdfFromUrlSinglePage(url , title, holder.pdfView , holder.progressBar, null)
+try {
+//    MyApplication.loadPdfFromUrlSinglePage(url, title, holder.pdfView, holder.progressBar, null)
+}
+catch (e: Exception){
+    Log.d(TAG, "onBindViewHolder: failed")
+}
 
         MyApplication.loadCategory(categoryId, holder.categoryTv)
 
-        MyApplication.loadPdfSize(url, title, holder.sizeTv)
+
+        try {
+
+//            MyApplication.loadPdfSize(url, title, holder.sizeTv)
+        }
+        catch (e: Exception){
+            Log.d(TAG, "onBindViewHolder: failed load size")
+        }
 
         //handle click, open pdf details page
         holder.itemView.setOnClickListener {

@@ -1,14 +1,18 @@
-package com.example.kamu_kamu
+package com.example.kamu_kamu.activities
 
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.example.kamu_kamu.RecipesUserFragment
+import com.example.kamu_kamu.Welcome
 import com.example.kamu_kamu.databinding.ActivityDashboardUserBinding
+import com.example.kamu_kamu.models.ModelCategory
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -47,6 +51,14 @@ class DashboardUserActivity : AppCompatActivity() {
             startActivity(Intent(this, Welcome::class.java))
             finish()
         }
+
+        //handle click, open profile
+        binding.profileBtn.setOnClickListener{
+            startActivity(Intent(this,ProfileActivity::class.java))
+        }
+
+
+
 
     }
 
@@ -172,7 +184,7 @@ class DashboardUserActivity : AppCompatActivity() {
             return fragmentTitleList[position]
         }
 
-        public fun addFragment(fragment:RecipesUserFragment, title:String){
+        public fun addFragment(fragment: RecipesUserFragment, title:String){
             //add fragment that will passed as parameter in fragment list
             fragmentsList.add(fragment)
             //add title that will be passed as parameter
@@ -185,18 +197,32 @@ class DashboardUserActivity : AppCompatActivity() {
 
 
 
+    //this activity can be opened with or witjout login.
+    //hide logout and profile button when user not logged in
+
+
+
     private fun checkUser() {
         //get current user
         val firebaseUser = firebaseAuth.currentUser
         if(firebaseUser == null){
             //not logged in, user can stay user dashboard without login
             binding.subtitleTv.text = "Not logged in"
+
+
+            //hide profile, logout
+            binding.profileBtn.visibility = View.GONE
+            binding.logoutBtn.visibility = View.GONE
         }
         else{
             //logged in, get and show user info
             val email = firebaseUser.email
             //set to text in the toolbar
             binding.subtitleTv.text = email
+
+            //show profile, logout
+            binding.profileBtn.visibility = View.VISIBLE
+            binding.logoutBtn.visibility = View.VISIBLE
 
         }
     }
