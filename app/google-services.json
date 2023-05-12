@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "14350768496",
-    "project_id": "kamu-kamu-mobile-app",
-    "storage_bucket": "kamu-kamu-mobile-app.appspot.com"
+    "project_number": "740308784735",
+    "project_id": "kamu-kamu-madd",
+    "storage_bucket": "kamu-kamu-madd.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:14350768496:android:9aa6feb710da75d449d7b5",
+        "mobilesdk_app_id": "1:740308784735:android:bf55ed82efe1940c1c2dea",
         "android_client_info": {
           "package_name": "com.example.kamu_kamu"
         }
       },
       "oauth_client": [
         {
-          "client_id": "14350768496-9co75j98cpgp9hjmuptqsng2iugg91j9.apps.googleusercontent.com",
+          "client_id": "740308784735-13uurduuvqnc9mubg3oc4nd9jdbnrmdp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDjB3pKJuc10_U9f-T8VJkJ2JROFL2O98Q"
+          "current_key": "AIzaSyDMwM7MylJ--noEtp4yJvgYRoeXNfC3ijA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "14350768496-9co75j98cpgp9hjmuptqsng2iugg91j9.apps.googleusercontent.com",
+              "client_id": "740308784735-13uurduuvqnc9mubg3oc4nd9jdbnrmdp.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

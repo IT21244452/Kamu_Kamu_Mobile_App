@@ -75,16 +75,16 @@ class AdapterPdfAdmin :Adapter<AdapterPdfAdmin.HolderPdfAdmin>, Filterable{
         MyApplication.loadCategory(categoryId, holder.categoryTv)
 
         //pass null for page number // load pdf thumbnail
-//        MyApplication.loadPdfFromUrlSinglePage(
-//            pdfUrl,
-//            title,
-//            holder.pdfView,
-//            holder.progressBar,
-//            null
-//        )
+        MyApplication.loadPdfFromUrlSinglePage(
+            pdfUrl,
+            title,
+            holder.pdfView,
+            holder.progressBar,
+            null
+        )
 
         //load pdf size
-//        MyApplication.loadPdfSize(pdfUrl, title, holder.sizeTv)
+        MyApplication.loadPdfSize(pdfUrl, title, holder.sizeTv)
 
         //handle click, show dialog with options 1) Edit recipe, 2) Delete Recipe
         holder.moreBtn.setOnClickListener {
