@@ -279,12 +279,16 @@
                     android:src="@drawable/ic_comment_add_black"
                     android:layout_alignParentEnd="true"/>
 
-<!--                -->
-<!--&lt;!&ndash;                Recycler View: Show Comments&ndash;&gt;-->
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:id="@+id/"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
+
+<!--                Recycler View: Show Comments-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/commentsRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/addCommentBtn"
+                    tools:listitem="@layout/row_comment"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
 
 
             </RelativeLayout>

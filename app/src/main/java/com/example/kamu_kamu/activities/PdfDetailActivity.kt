@@ -15,8 +15,10 @@ import androidx.core.content.ContextCompat
 import com.example.kamu_kamu.Constants
 import com.example.kamu_kamu.MyApplication
 import com.example.kamu_kamu.R
+import com.example.kamu_kamu.adapters.AdapterComment
 import com.example.kamu_kamu.databinding.ActivityPdfDetailBinding
 import com.example.kamu_kamu.databinding.DialogCommentAddBinding
+import com.example.kamu_kamu.models.ModelComment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -50,6 +52,11 @@ class PdfDetailActivity : AppCompatActivity() {
     private lateinit var progressDialog:ProgressDialog
 
 
+    //arraylist to hold comments
+    private lateinit var commentArrayList: ArrayList<ModelComment>
+
+    //adapter to be set to recycler view
+    private lateinit var adapterComment: AdapterComment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +85,7 @@ class PdfDetailActivity : AppCompatActivity() {
         MyApplication.incrementRecipeViewCount(recipeId)
 
         loadRecipeDetails()
+        showComments()
 
         //handle back button click, go back
         binding.backBtn.setOnClickListener {
@@ -145,7 +153,41 @@ class PdfDetailActivity : AppCompatActivity() {
 
         }
 
+    }
 
+    private fun showComments() {
+        //init arraylist
+        commentArrayList = ArrayList()
+        //db path to load comments
+        val ref = FirebaseDatabase.getInstance().getReference("Recipes")
+        ref.child(recipeId).child("Comments")
+            .addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+//                    clear list
+                    commentArrayList.clear()
+                    for(ds in snapshot.children){
+                        //get data model
+                        val model = ds.getValue(ModelComment::class.java)
+                        //add to list
+                        commentArrayList.add(model!!)
+                    }
+
+                    //                setup adapter
+                    adapterComment = AdapterComment(this@PdfDetailActivity, commentArrayList)
+                    //set adapter to recyclerview
+                    binding.commentsRv.adapter = adapterComment
+
+                }
+
+
+
+
+
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+            })
     }
 
 
@@ -182,8 +224,6 @@ class PdfDetailActivity : AppCompatActivity() {
             }
         }
 
-
-
     }
 
     private fun addComment() {
@@ -198,7 +238,7 @@ class PdfDetailActivity : AppCompatActivity() {
         val hashMap = HashMap<String , Any>()
         hashMap["id"] = "$timestamp"
         hashMap["recipeId"] = "$recipeId"
-        hashMap["recipeId"] = "$recipeId"
+//        hashMap["recipeId"] = "$recipeId"
         hashMap["timestamp"] = "$timestamp"
         hashMap["comment"] = "$comment"
         hashMap["uid"] = "${firebaseAuth.uid}"
