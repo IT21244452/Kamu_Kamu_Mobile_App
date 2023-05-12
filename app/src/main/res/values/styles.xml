@@ -9,7 +9,14 @@
 
     </style>
 
-<!--    Theme for transparent background of dialog-->
+<!--    Style for ShapeableImageViewto make it circle-->
+    <style name="styleCircleImage">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+
+    <!--    Theme for transparent background of dialog-->
 
     <style name="CustomDialog" parent="Theme.MaterialComponents.Dialog">
 
