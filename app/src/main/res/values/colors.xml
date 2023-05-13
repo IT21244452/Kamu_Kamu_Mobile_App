@@ -6,7 +6,7 @@
     <color name="teal_200">#E91E63</color>
     <color name="teal_700">#B11449</color>
     <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="white">#E6FFFFFF</color>
     <color name="goldenBrown">#CA8606</color>
     <color name="gray01">#c5c5c5</color>
     <color name="gray02">#777777</color>
@@ -15,6 +15,14 @@
     <color name="goldenBrown2">#EDC780</color>
     <color name="gray04">#FBFBFB</color>
     <color name="darkbrown">#67370C</color>
+
+    <color name="pdfColor1">#FF6263</color>
+    <color name="pdfColor2">#23C4ED</color>
+    <color name="pdfColor3">#38CC77</color>
+    <color name="pdfColor4">#D9D55B</color>
+    <color name="pdfColor5">#318BD1</color>
+    <color name="pdfColor6">#D345D0</color>
+
 
 
 

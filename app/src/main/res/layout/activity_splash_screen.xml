@@ -1,38 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/motionLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     android:background="@drawable/allbg"
+    android:gravity="center"
+    android:orientation="vertical"
+    app:layoutDescription="@xml/activity_splash_screen_scene"
     tools:context=".activities.SplashScreen">
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/backgroundLayout"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:src="@drawable/logo_mad" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/kamu_kamu"
-        android:textSize="20sp"
-        android:fontFamily="sans-serif-condensed"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:layout_marginTop="20dp" />
+        android:id="@+id/brownPan"
+        android:layout_width="1000dp"
+        android:layout_height="1000dp"
+        android:src="@drawable/splash"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
+    <ImageView
+        android:id="@+id/whitepan"
+        android:layout_width="1000dp"
+        android:layout_height="1000dp"
+        android:src="@drawable/splash"
+        android:tint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UseAppTint" />
 
 
+    <!--    <ImageView-->
+    <!--        android:layout_width="200dp"-->
+    <!--        android:layout_height="200dp"-->
+    <!--        android:src="@drawable/logo_mad" />-->
+
+    <!--    <TextView-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/kamu_kamu"-->
+    <!--        android:textSize="20sp"-->
+    <!--        android:fontFamily="sans-serif-condensed"-->
+    <!--        android:textStyle="bold"-->
+    <!--        android:textColor="@color/black"-->
+    <!--        android:layout_marginTop="20dp" />-->
 
 
-
-
-
-
-
-
-</LinearLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>

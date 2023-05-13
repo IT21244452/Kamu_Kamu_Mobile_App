@@ -12,10 +12,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kamu_kamu.filters.FilterPdfadmin
 import com.example.kamu_kamu.MyApplication
+import com.example.kamu_kamu.R
 import com.example.kamu_kamu.activities.PdfDetailActivity
 import com.example.kamu_kamu.activities.PdfEditActivity
 import com.example.kamu_kamu.databinding.RowPdfAdminBinding
 import com.example.kamu_kamu.models.ModelPdf
+import kotlin.random.Random
 
 class AdapterPdfAdmin :Adapter<AdapterPdfAdmin.HolderPdfAdmin>, Filterable{
 
@@ -148,6 +150,22 @@ class AdapterPdfAdmin :Adapter<AdapterPdfAdmin.HolderPdfAdmin>, Filterable{
         }
 
         return filter as FilterPdfadmin
+    }
+
+
+    //to get random colours
+    fun randomColor(): Int{
+        val list = ArrayList<Int>()
+        list.add(R.color.pdfColor1)
+        list.add(R.color.pdfColor2)
+        list.add(R.color.pdfColor3)
+        list.add(R.color.pdfColor4)
+        list.add(R.color.pdfColor5)
+        list.add(R.color.pdfColor6)
+
+        val seed = System.currentTimeMillis().toInt()
+        val randomIndex = Random(seed).nextInt(list.size)
+        return list[randomIndex]
     }
 
 
