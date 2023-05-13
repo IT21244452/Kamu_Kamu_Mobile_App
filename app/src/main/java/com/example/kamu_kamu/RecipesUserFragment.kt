@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 
-class RecipesUserFragment : Fragment {
+class  RecipesUserFragment : Fragment {
     
     
     //view binding fragment_recipes_user.xml => FragmentRecipesUserBinding
